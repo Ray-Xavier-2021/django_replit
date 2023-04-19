@@ -1,0 +1,24 @@
+<!-- Extends base template to  other templates: -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-3">Poll Questions</h1>
+<!-- Check if a question list -->
+    {% if latest_question_list %}
+    <!-- Loop through question list -->
+        {% for question in latest_question_list %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <!-- Insert question field using DTL syntax -->
+                    <p class="lead">{{question.question_text}}</p>
+                    <!-- Creates links using DTL syntax for href with namespace as path link button for vote / results -->
+                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary btn-sm">Vote Now</a>
+                    <a href="{% url 'polls:results' question.id %}" class="btn btn-primary btn-sm">Results</a>
+                </div>
+            </div>
+        {% endfor%}
+    <!-- If no polls -->
+    {% else%}
+    <p>No polls available</p>
+    {% endif%}
+{% endblock %}
